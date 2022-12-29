@@ -1,0 +1,14 @@
+test     start   1000
+first    lda     alpha
+         mul     incr
+         sta     beta
+         lda     gamm
+         add     one 
+         sta     delta 
+one      word    1
+alpha    word    5
+gamm     word    10
+incr     word    3
+beta     resw    1
+delta    resw    1
+         end     first

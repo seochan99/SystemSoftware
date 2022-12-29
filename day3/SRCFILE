@@ -1,0 +1,15 @@
+test     start   1000
+first    lda     zero
+         ldx     zero
+second   ldch    dgu,x
+         sub     diff
+         stch    dest,x
+         tix     seven
+         jlt     second
+         lda     zero
+zero     word    0
+seven    word    7
+diff     word    32
+dgu      byte    c'dongguk'
+dest     resb    7
+         end     first
