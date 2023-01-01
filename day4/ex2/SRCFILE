@@ -1,0 +1,19 @@
+test     start   1000
+first    lda     zero
+         ldx     zero
+second1  ldch    str1,x
+         comp    space
+         jeq     third
+second2  stch    str2,x
+         tix     maxlen
+         jlt     second1
+         lda     zero
+third    ldch    hyphen
+         j       second2
+zero     word    0
+maxlen   word    7
+space    word    32
+hyphen   byte    c'-'
+str1     byte    c'dgu cse'
+str2     resb    7
+         end     first
