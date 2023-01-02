@@ -1,0 +1,32 @@
+test     start   1000
+first    stl     retadr
+         jsub    double
+         ldl     retadr
+         rsub
+double   lda     zero
+         sta     index
+loop     ldx     index
+         lda     src,x
+         mul     two
+         sta     dest,x
+         lda     index
+         add     three
+         sta     index
+         comp    twelve
+         jlt     loop
+         rsub
+src      word    16
+         word    8
+         word    64
+         word    32
+zero     word    0 
+twelve   word    12
+two      word    2
+three    word    3 
+dest     resw    4
+max      resw    1
+index    resw    1
+retadr   resw    1
+result1  resw    1
+result2  resw    1
+exit     end     first
