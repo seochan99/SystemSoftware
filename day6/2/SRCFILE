@@ -1,0 +1,17 @@
+test     start   1000
+first    lda     zero
+         ldx     zero
+         sta     sum
+loop     ldch    numbers,x
+         sub     diff
+         add     sum
+         sta     sum
+         tix     five
+         jlt     loop
+         jeq     exit
+zero     word    0
+five     word    5
+diff     word    48 
+numbers  byte    c'54321'
+sum      resw    1
+exit     end     first
