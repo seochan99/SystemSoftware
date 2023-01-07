@@ -13,7 +13,6 @@ while True:
         break
     # 개행 없애고 공백기준 split하여 List화 하여 temp에 임시 저장
     temp = line.rstrip('\n').split()
-
     # label이 없는 경우 temp의 len은
     if len(temp) == 2:
         # temp[0] : opcode
