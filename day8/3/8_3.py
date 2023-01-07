@@ -9,8 +9,6 @@ operand = []
 
 # loc 아스키 코드값 (16진수) 출력을 위해 0x붙임
 loc = 0x1000
-# falg 0으로 초기화
-flag = 0
 
 
 # 파일 정보 저장
@@ -39,21 +37,43 @@ while True:
 # close file
 f.close()
 
-# 시작부분인 test일때
-if label[0] == 'test':
-    print(f"Label: {label[0]}, Loc: {format(loc, 'x')}, flag: {flag}")
-
 
 # print label, opcode, oeprand
 # word : 3byte
 # byte : 1byte
 
+# flag,
+flag = {}
+for i in label:
+    try:
+        flag[i] += 1
+    except:
+        flag[i] = 0
+# print(flag)
+
+# 시작부분인 test일때
+if label[0] == 'test':
+    print(
+        f"Label: {label[0]}, Loc: {format(loc, 'x')}, flag: {flag[f'{label[0]}']}")
+
 for i in range(1, len(label)):
     # 그 외 symbol
     if label[i] in optab_label:
-        print(f"Label: {label[i]}, Loc: {format(loc, 'x')}, flag: {flag}")
-        loc += 0x03
+        # Label 출력
+        print(
+            f"Label: {label[i]}, Loc: {format(loc, 'x')}, flag: {flag[f'{label[i]}']}")
+        # 다음 위치 계산
+        if opcode[i] == 'byte':  # opcode가 byte면
+            # 해당하는 문자열 길이만큼 공간차지, c'hello'에서 hello 부분의 길이만큼 loc에 더하기 계산
+            loc += len(operand[i].split("\'")[1])
+        elif opcode[i] == 'resb':  # opcode가 resb라
+            #  해당하는 byte만큼 공간차지, loc에 더하기 계산
+            loc += int(operand[i])
+        else:  # 그 외
+            loc += 0x03
+        # j선언, 이를 통해 해당하는 Label의 opcode를 진행함
         j = i
+        # label routine이 끝날때까지
         while True:
             j += 1
             if j >= len(label):
