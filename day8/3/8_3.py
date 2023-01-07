@@ -32,7 +32,6 @@ while True:
         label.append(temp[0])
         optab_label.append(temp[0])
         opcode.append(temp[1])
-
         operand.append(temp[2])
 # close file
 f.close()
@@ -42,11 +41,17 @@ f.close()
 # word : 3byte
 # byte : 1byte
 
-# flag,
+# flag
 flag = {}
+# label을 i로 가져온다
 for i in label:
+    # 이미 0으로 초기화 되어 있다면 try가 실행되어 1의 값을 할당한다
     try:
-        flag[i] += 1
+        # flag는 중복여부 이므로 1이라면 중복인것을 확인한거니 패스하고
+        # 1이 아니라면 중복확인한것이 아니니 확인해준다.
+        if flag[i] != 1:
+            flag[i] = 1
+    # except 문이 수행되면 0으로 초기화 된다.
     except:
         flag[i] = 0
 # print(flag)
@@ -76,10 +81,10 @@ for i in range(1, len(label)):
         # label routine이 끝날때까지
         while True:
             j += 1
+            # label의 길이보다 index가 커질때
             if j >= len(label):
                 break
             if label[j] == '-    ':
                 loc += 0x03
             else:
                 break
-    # 그외 부분
