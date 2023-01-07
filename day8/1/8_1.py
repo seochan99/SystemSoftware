@@ -19,7 +19,9 @@ while True:
 # 파일 닫기
 f.close()
 
+# 안내문
 print("---instruction : code---")
+# 현재 intruction, code 리스트 내용을 1:1대응 시켜서 보여줌
 for i in range(len(instruction)):
     print(f"{instruction[i]} : {code[i]}")
 
