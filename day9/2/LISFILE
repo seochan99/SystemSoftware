@@ -1,12 +1,14 @@
 1000           test     start   1000
-1000  001012   first    lda     zero
+1000  000000   first    lda     chan
+**** undefined symbol in operand ****
 1003  041012            ldx     zero
 1006  509018   cloop    ldch    str1,x
 1009  54901d            stch    str2,x
 100c  2C1015            tix     alpha
-100f  381006            jlt     cloop
+100f  001006            jj     cloop
+**** unrecognized operation code ****
 1012  000000   zero     word    0
-1015  00000b   alpha    word    11
+1015  000005   alpha    word    5
 1018  68656c   str1     byte     c'hello'
       6c6f
 101d           str2     resb    5
