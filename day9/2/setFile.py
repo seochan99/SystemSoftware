@@ -82,12 +82,20 @@ def pass2(loc_list, object_code, label, opcode, operand, instruction_code):
         # format 맞추기
         if len(label[i]) == 4:
             if len(opcode[i]) == 4:
-                data = f"{loc_list[i]}  {object_code[i]}   {label[i]}     {opcode[i]}    {operand[i]}\n"
+                if len(object_code[i]) > 6:  # 목적코드 길이가 6보다 긴 경우
+                    data = f"{loc_list[i]}  {object_code[i][:6]}   {label[i]}     {opcode[i]}     {operand[i]}\n      {object_code[i][6:]}\n"
+                else:
+                    data = f"{loc_list[i]}  {object_code[i]}   {label[i]}     {opcode[i]}    {operand[i]}\n"
             else:
                 data = f"{loc_list[i]}  {object_code[i]}   {label[i]}     {opcode[i]}     {operand[i]}\n"
+
         else:
             if len(opcode[i]) == 4:
-                data = f"{loc_list[i]}  {object_code[i]}   {label[i]}    {opcode[i]}    {operand[i]}\n"
+                # ldch, stch 예외처리
+                if opcode[i] == 'ldch' or opcode[i] == 'stch':
+                    data = f"{loc_list[i]}  {object_code[i]}   {label[i]}    {opcode[i]}    {operand[i][0]},{operand[i][1]}\n"
+                else:
+                    data = f"{loc_list[i]}  {object_code[i]}   {label[i]}    {opcode[i]}    {operand[i]}\n"
             else:
                 data = f"{loc_list[i]}  {object_code[i]}   {label[i]}    {opcode[i]}     {operand[i]}\n"
         f.write(data)

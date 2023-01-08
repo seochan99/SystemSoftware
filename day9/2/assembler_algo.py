@@ -5,7 +5,7 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
         # 시작부분인 START일때 '      '으로, 그외에는 0으로 초기화
         if opcode[i] == 'start':
             # start object_code is null
-            object_code.append('      ')
+            object_code.append('         ')
             continue
         else:
             object_code.append('000000')
@@ -37,7 +37,7 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
             for j in ascii_values:
                 data = data + format(j, 'x')
         # 이때는 data값을 안가짐
-        elif opcode[i] == 'resb' or 'resw' or 'end':
+        elif opcode[i] == 'resb' or opcode[i] == 'resw' or opcode[i] == 'end':
             data = '      '
         else:  # 잘못된 심볼
             flag1 = False
@@ -56,6 +56,10 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
             elif operand[i] in label[j]:
                 if label[j] != 'first':
                     data = data + loc_list[j]
+                flag2 = True
+                break
+            # word resb resw byte는 loc붙일거없음
+            elif opcode[i] == 'word' or opcode[i] == 'resb' or opcode[i] == 'resw' or opcode[i] == 'byte':
                 flag2 = True
                 break
 
