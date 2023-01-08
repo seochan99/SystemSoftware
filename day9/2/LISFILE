@@ -1,0 +1,12 @@
+1000        test     start   1000
+1000  000000   first    lda     zero
+1003  000000            ldx     zero
+1006  000000   cloop    ldch    str1,x
+1009  000000            stch    str2,x
+100c  000000            tix     alpha
+100f  000000            jlt     cloop
+1012  000000   zero     word    0
+1015  000000   alpha    word    5
+1018  000000   str1     byte    c'hello'
+101d  000000   str2     resb    5
+1022  000000            end     first

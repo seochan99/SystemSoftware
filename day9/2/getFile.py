@@ -17,7 +17,6 @@ def get_optab(instruction, code):
 def get_srcfile(label, opcode, operand, optab_label):
     # 파일 오픈
     f = open("./SRCFILE", 'r')
-
     # 파일 정보 저장
     while True:
         line = f.readline()

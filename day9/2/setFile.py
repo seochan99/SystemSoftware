@@ -1,5 +1,7 @@
+from assembler_algo import *
 
-def set_intfile(loc, label, opcode, operand, optab_label):
+
+def pass1(loc_list, loc, label, opcode, operand, optab_label):
     f = open("./INTFILE", 'w')
 
     for i in range(len(label)):
@@ -7,6 +9,7 @@ def set_intfile(loc, label, opcode, operand, optab_label):
         # 시작부분인 START일때
         if opcode[i] == 'start':
             data = f"{format(loc, 'x')}  {label[i]}     {opcode[i]}   {operand[i]}\n"
+            loc_list.append(format(loc, 'x'))  # loc list에 추가해주기
             f.write(data)
             continue
 
@@ -25,18 +28,17 @@ def set_intfile(loc, label, opcode, operand, optab_label):
                     data = f"{format(loc, 'x')}  {label[i]}    {opcode[i]}    {operand[i]}\n"
                 else:
                     data = f"{format(loc, 'x')}  {label[i]}    {opcode[i]}     {operand[i]}\n"
+            loc_list.append(format(loc, 'x'))
             f.write(data)
             # 다음 위치 계산
             if opcode[i] == 'byte':  # opcode가 byte면
                 # 해당하는 문자열 길이만큼 공간차지, c'hello'에서 hello 부분의 길이만큼 loc에 더하기 계산
                 loc += len(operand[i].split("\'")[1])
-            elif opcode[i] == 'word':
-                loc += len(operand[i].split("\'")[1])*3
             elif opcode[i] == 'resb':  # opcode가 resb라
                 #  해당하는 byte만큼 공간차지, loc에 더하기 계산
                 loc += int(operand[i])
-            elif opcode[i] == 'resw':
-                loc += int(operand[i]*3)
+            elif opcode[i] == 'resw':  # resw라면
+                loc += int(operand[i])*3
             else:  # 그 외
                 loc += 0x03
             # j선언, 이를 통해 해당하는 Label의 opcode를 진행함
@@ -56,7 +58,37 @@ def set_intfile(loc, label, opcode, operand, optab_label):
                             data = f"{format(loc, 'x')}  {label[j]}    {opcode[i]}    {operand[i]}\n"
                         else:
                             data = f"{format(loc, 'x')}  {label[j]}    {opcode[i]}     {operand[i]}\n"
+                    loc_list.append(format(loc, 'x'))  # loc list에 추가해주기
                     f.write(data)
                     loc += 0x03
                 else:
                     break
+    f.close()
+
+
+def pass2(loc_list, object_code, label, opcode, operand):
+    f = open("./LISFILE", 'w')
+    cal_object_code(loc_list, object_code, label, opcode, operand)
+
+    for i in range(len(label)):
+        # loc 계산
+        # 시작부분인 START일때
+        if opcode[i] == 'start':
+            # start object_code is null
+            data = f"{loc_list[i]} {object_code[i]} {label[i]}     {opcode[i]}   {operand[i]}\n"
+            f.write(data)
+            continue
+        # format 맞추기
+        if len(label[i]) == 4:
+            if len(opcode[i]) == 4:
+                data = f"{loc_list[i]}  {object_code[i]}   {label[i]}     {opcode[i]}    {operand[i]}\n"
+            else:
+                data = f"{loc_list[i]}  {object_code[i]}   {label[i]}     {opcode[i]}     {operand[i]}\n"
+        else:
+            if len(opcode[i]) == 4:
+                data = f"{loc_list[i]}  {object_code[i]}   {label[i]}    {opcode[i]}    {operand[i]}\n"
+            else:
+                data = f"{loc_list[i]}  {object_code[i]}   {label[i]}    {opcode[i]}     {operand[i]}\n"
+        f.write(data)
+
+    f.close()
