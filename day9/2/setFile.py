@@ -30,9 +30,13 @@ def set_intfile(loc, label, opcode, operand, optab_label):
             if opcode[i] == 'byte':  # opcode가 byte면
                 # 해당하는 문자열 길이만큼 공간차지, c'hello'에서 hello 부분의 길이만큼 loc에 더하기 계산
                 loc += len(operand[i].split("\'")[1])
+            elif opcode[i] == 'word':
+                loc += len(operand[i].split("\'")[1])*3
             elif opcode[i] == 'resb':  # opcode가 resb라
                 #  해당하는 byte만큼 공간차지, loc에 더하기 계산
                 loc += int(operand[i])
+            elif opcode[i] == 'resw':
+                loc += int(operand[i]*3)
             else:  # 그 외
                 loc += 0x03
             # j선언, 이를 통해 해당하는 Label의 opcode를 진행함
