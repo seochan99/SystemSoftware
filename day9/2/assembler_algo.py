@@ -18,7 +18,14 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
         data = ''
         # instruction code가 있을때
         if opcode[i].upper() in instruction_code:
-            data = data + instruction_code[f'{opcode[i].upper()}']
+            # ldch, stch일 경우
+            if opcode[i] == 'ldch' or opcode[i] == 'stch':
+                # data붙이기
+                data = data + instruction_code[f'{opcode[i].upper()}']
+                # operand 쪼개주기 str1, x
+                operand[i] = operand[i].split(',')
+            else:
+                data = data + instruction_code[f'{opcode[i].upper()}']
         # word가 들어올때
         elif opcode[i] == 'word':
             data = data + operand[i]
@@ -38,19 +45,29 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
         # operand가 있는지 체크
         for j in range(1, len(label)):
             # 해당 operand 주소  붙이기
-            if operand[i] == label[j]:
-                data = data + loc_list[j]
+            # ldch, stch일때 str, x나눠져있음
+            if opcode[i] == 'ldch' or opcode[i] == 'stch':
+                # str이라고 변수 있다면
+                if operand[i][0] in label[j]:
+                    # 90붙이고 지시어 코드 붙이기
+                    data = data + '90' + loc_list[j][2:4]
+                    flag2 = True
+            # 그외
+            elif operand[i] in label[j]:
+                if label[j] != 'first':
+                    data = data + loc_list[j]
                 flag2 = True
                 break
 
         # 해당 줄 출력하기
         # 심볼이 없을경우
         if flag1 == False:
-            operand[i] = operand[i] + "\n**** undefined symbol in operand ****"
+            operand[i] = operand[i] + "\n**** unrecognized operation code ****"
 
         # operation code가 없을 경우
         if flag2 == False:
-            operand[i] = operand[i] + "\n**** unrecognized operation code ****"
+            operand[i] = operand[i] + "\n**** undefined symbol in operand ****"
 
         # 6자리가 안되면 0으로 채우기
-        print(data.zfill(6))
+        object_code[i] = data.zfill(6)
+        # print(data.zfill(6))
