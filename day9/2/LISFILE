@@ -1,16 +1,13 @@
-1000        test     start   1000
+1000           test     start   1000
 1000  001012   first    lda     zero
 1003  041012            ldx     zero
-1006  509018   cloop    ldch    ['str1', 'x']
-1009  54901d            stch    ['str2', 'x']
+1006  509018   cloop    ldch    str1,x
+1009  54901d            stch    str2,x
 100c  2C1015            tix     alpha
 100f  381006            jlt     cloop
 1012  000000   zero     word    0
-**** undefined symbol in operand ****
-1015  000005   alpha    word    5
-**** undefined symbol in operand ****
-1018  68656c6c6f   str1     byte    c'hello'
-**** undefined symbol in operand ****
+1015  00000b   alpha    word    11
+1018  68656c   str1     byte     c'hello'
+      6c6f
 101d           str2     resb    5
-**** undefined symbol in operand ****
 1022                    end     first

@@ -6,7 +6,7 @@
 100c           ldch    str1,x
 100f           ldch    str1,x
 1012  zero     word    0
-1015  alpha    word    5
+1015  alpha    word    11
 1018  str1     byte    c'hello'
 101d  str2     resb    5
 1022           end     first

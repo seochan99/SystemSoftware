@@ -28,7 +28,9 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
                 data = data + instruction_code[f'{opcode[i].upper()}']
         # word가 들어올때
         elif opcode[i] == 'word':
-            data = data + operand[i]
+            temp = int(operand[i])
+            data = data + format(temp, 'x')
+
         # byte, char이 들어올때
         elif opcode[i] == 'byte':
             text = operand[i].split("\'")[1]
