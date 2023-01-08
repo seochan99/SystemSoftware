@@ -20,6 +20,13 @@ object_code = []
 
 # optab 가져오기
 get_optab(instruction, code)
+
+# instruction : code 생성
+instruction_code = {}
+for i in range(len(instruction)):
+    instruction_code[instruction[i]] = code[i]
+# print(instruction_code)
+
 # srcfile 가져오기
 get_srcfile(label, opcode, operand, optab_label)
 
@@ -28,10 +35,4 @@ get_srcfile(label, opcode, operand, optab_label)
 pass1(loc_list, loc, label, opcode, operand, optab_label)
 
 # PASS2
-pass2(loc_list, object_code, label, opcode, operand)
-
-print(loc_list)
-print(label)
-print(opcode)
-print(operand)
-print(object_code)
+pass2(loc_list, object_code, label, opcode, operand, instruction_code)

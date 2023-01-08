@@ -66,9 +66,10 @@ def pass1(loc_list, loc, label, opcode, operand, optab_label):
     f.close()
 
 
-def pass2(loc_list, object_code, label, opcode, operand):
+def pass2(loc_list, object_code, label, opcode, operand, instruction_code):
     f = open("./LISFILE", 'w')
-    cal_object_code(loc_list, object_code, label, opcode, operand)
+    cal_object_code(loc_list, object_code, label,
+                    opcode, operand, instruction_code)
 
     for i in range(len(label)):
         # loc 계산
