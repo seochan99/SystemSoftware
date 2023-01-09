@@ -16,7 +16,14 @@ def get_optab(instruction, code):
 
 def get_srcfile(label, opcode, operand, optab_label):
     # 파일 오픈
-    f = open("./SRCFILE", 'r')
+    file_name = input('파일 이름 입력 : ')
+
+    # srcfile 입력받기
+    try:
+        f = open(f"./{file_name}", 'r')
+    except:
+        print(f"[ERROR] '{file_name}' File Not Found")
+        return
     # 파일 정보 저장
     while True:
         line = f.readline()
