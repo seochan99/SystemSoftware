@@ -36,3 +36,7 @@ pass1(loc_list, loc, label, opcode, operand, optab_label)
 
 # PASS2
 pass2(loc_list, object_code, label, opcode, operand, instruction_code)
+
+# 프로그램 길이
+# 마지막 loc 값 - 0번째 loc값
+set_objfile(loc_list, object_code, label, opcode, operand)

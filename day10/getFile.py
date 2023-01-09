@@ -16,7 +16,8 @@ def get_optab(instruction, code):
 
 def get_srcfile(label, opcode, operand, optab_label):
     # 파일 오픈
-    file_name = input('파일 이름 입력 : ')
+    # file_name = input('파일 이름 입력 : ')
+    file_name = 'srcfile'
 
     # srcfile 입력받기
     try:
