@@ -129,7 +129,7 @@ def set_objfile(loc_list, object_code, label, opcode, operand):
         elif opcode[i] == 'END':
             for j in range(len(label)):
                 if operand[i] == label[j]:
-                    data = data + f'\nE{loc_list[j].zfill(6)}\n'
+                    data = data + f'\nE{loc_list[j].zfill(6)}'
                     break
             f.write(data)
 

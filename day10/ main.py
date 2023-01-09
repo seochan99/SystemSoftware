@@ -13,7 +13,7 @@ label = []  # label
 optab_label = []  # 공백제외한 label들
 opcode = []  # opcdoe
 operand = []  # operand
-loc_list = []
+loc_list = []  # loc_list
 
 # LISFILE
 object_code = []
