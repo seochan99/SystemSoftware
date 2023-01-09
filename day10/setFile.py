@@ -129,23 +129,31 @@ def set_objfile(loc_list, object_code, label, opcode, operand):
         elif opcode[i] == 'END':
             for j in range(len(label)):
                 if operand[i] == label[j]:
-                    data = data + f'E{loc_list[j].zfill(6)}\n'
+                    data = data + f'\nE{loc_list[j].zfill(6)}\n'
                     break
             f.write(data)
 
         # T record
         # 최대 길이 1E : 30
         else:
+
             # first라면 T붙이기
             if loc_list[i] == start_address:
-                # T, 레코드 시작 주소, 길이붙이기
-                data = 'T' + start_address.zfill(6) + body_length.upper()
+                # T, 레코드 시작 주소, 길이, obeject코드
+                data = 'T' + \
+                    start_address.zfill(
+                        6) + body_length.upper() + object_code[i]
+            # first 가 아니라면
             else:
 
                 # resb만나는 경우 개행
-                if opcode[i] == 'resb' or opcode[i] == 'resw':
-                    data = data + '\n'
+                if opcode[i] == 'RESB' or opcode[i] == 'RESW':
+                    # 다음이 끝이 아닌 경우
+                    if opcode[i+1] != 'END':
+                        # 끝이 아닌경우 T record 이어주기
+                        data = data + '\nT'
                 else:
+                    # 임시데이터 저장소
                     temp_data = data + object_code[i]
                     # 오브젝트 코드 붙인 길이가 최대길이보다 길때
                     if len(temp_data) > 30:
@@ -155,10 +163,6 @@ def set_objfile(loc_list, object_code, label, opcode, operand):
                     else:
                         # data에 반영
                         data = temp_data
-
-                        # else:
-                        #     data =
-
             f.write(data)
 
     f.close()
