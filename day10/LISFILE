@@ -10,4 +10,11 @@
 1018  68656c   str1     byte     c'hello'
       6c6f
 101d           str2     resb    5
-1022                    end     first
+1022  000004   four     word    4
+1025  000008   beta     word    8
+1028  636861   str3     byte     c'chanchan'
+      6e6368616e
+1030           str4     resw    4
+103c  000009   nine     word    9
+103f  000002   two    word    2
+1042                    end     first

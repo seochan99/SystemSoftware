@@ -9,4 +9,10 @@ zero     word    0
 alpha    word    5
 str1     byte    c'hello'
 str2     resb    5
+four     word    4
+beta     word    8
+str3     byte    c'chanchan'
+str4     resw    4
+nine     word    9
+two      word    2
          end     first

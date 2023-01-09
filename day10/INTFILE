@@ -9,4 +9,10 @@
 1015  alpha    word    5
 1018  str1     byte    c'hello'
 101d  str2     resb    5
-1022           end     first
+1022  four     word    4
+1025  beta     word    8
+1028  str3     byte    c'chanchan'
+1030  str4     resw    4
+103c  nine     word    9
+103f  two    word    2
+1042           end     first
