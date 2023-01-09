@@ -1,6 +1,5 @@
 from getFile import *  # 파일 가져오기
 from setFile import *  # 파일 쓰기
-from assembler_algo import upperList
 
 # opcode.txt
 instruction = []  # 지시문
@@ -54,3 +53,5 @@ for i in range(len(operand)):
 
 # 오브젝트 파일 만들기
 set_objfile(loc_list, object_code, label, opcode, operand)
+
+print(int('1e', 16))

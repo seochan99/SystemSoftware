@@ -108,25 +108,57 @@ def set_objfile(loc_list, object_code, label, opcode, operand):
     # 프로그램 길이
     # 마지막 loc 값 - 0번째 loc값
     program_length = format(int(loc_list[-1], 16) - int(loc_list[0], 16), 'x')
+    body_length = format(int(loc_list[-2], 16) - int(loc_list[1], 16), 'x')
+
     f = open("./OBJFILE", 'w')
 
     for i in range(len(label)):
+
+        # 기본 데이터
         data = ''
-        # H작성, opcode가 start라면 H
+
+        # H작 record, opcode가 start라면 H
         if opcode[i] == 'START':
-            start_address = operand[i].zfill(6)
+            start_address = operand[i]
             data = data + \
-                f'H{label[i]}  {start_address}{program_length.zfill(6)}\n'
+                f'H{label[i]}  {start_address.zfill(6)}{program_length.zfill(6)}\n'
 
             f.write(data)
 
-        # T작성
-
-        # E작성
-        if opcode[i] == 'END':
+        # E record
+        elif opcode[i] == 'END':
             for j in range(len(label)):
                 if operand[i] == label[j]:
                     data = data + f'E{loc_list[j].zfill(6)}\n'
                     break
             f.write(data)
+
+        # T record
+        # 최대 길이 1E : 30
+        else:
+            # first라면 T붙이기
+            if loc_list[i] == start_address:
+                # T, 레코드 시작 주소, 길이붙이기
+                data = 'T' + start_address.zfill(6) + body_length.upper()
+            else:
+
+                # resb만나는 경우 개행
+                if opcode[i] == 'resb' or opcode[i] == 'resw':
+                    data = data + '\n'
+                else:
+                    temp_data = data + object_code[i]
+                    # 오브젝트 코드 붙인 길이가 최대길이보다 길때
+                    if len(temp_data) > 30:
+                        # 개행하고 다음줄부터 작성
+                        data = data + '\n' + 'T' + object_code[i]
+                    # 최대길이보다 짧으면
+                    else:
+                        # data에 반영
+                        data = temp_data
+
+                        # else:
+                        #     data =
+
+            f.write(data)
+
     f.close()

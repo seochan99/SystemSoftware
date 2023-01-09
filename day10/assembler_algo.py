@@ -77,7 +77,3 @@ def cal_object_code(loc_list, object_code, label, opcode, operand, instruction_c
         # 6자리가 안되면 0으로 채우기
         object_code[i] = data.zfill(6)
         # print(data.zfill(6))
-
-
-def upperList(loc_list, object_code, label, opcode, operand):
-    loc_list = [i.upper() for i in loc_list]
