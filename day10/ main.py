@@ -43,10 +43,14 @@ loc_list = [i.upper() for i in loc_list]
 object_code = [i.upper() for i in object_code]
 label = [i.upper() for i in label]
 opcode = [i.upper() for i in opcode]
-operand = [i.upper() for i in operand]
 
-
-print(loc_list)
+# operand는 이차원리스트이므로 별도로 대문자로 만들기진행
+for i in range(len(operand)):
+    if len(operand[i]) == 2:
+        operand[i][0] = operand[i][0].upper()
+        operand[i][1] = operand[i][1].upper()
+    else:
+        operand[i] = operand[i].upper()
 
 # 오브젝트 파일 만들기
 set_objfile(loc_list, object_code, label, opcode, operand)
