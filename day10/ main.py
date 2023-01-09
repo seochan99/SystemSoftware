@@ -1,5 +1,6 @@
 from getFile import *  # 파일 가져오기
 from setFile import *  # 파일 쓰기
+from assembler_algo import upperList
 
 # opcode.txt
 instruction = []  # 지시문
@@ -37,6 +38,15 @@ pass1(loc_list, loc, label, opcode, operand, optab_label)
 # PASS2
 pass2(loc_list, object_code, label, opcode, operand, instruction_code)
 
-# 프로그램 길이
-# 마지막 loc 값 - 0번째 loc값
+# 대문자 만들기
+loc_list = [i.upper() for i in loc_list]
+object_code = [i.upper() for i in object_code]
+label = [i.upper() for i in label]
+opcode = [i.upper() for i in opcode]
+operand = [i.upper() for i in operand]
+
+
+print(loc_list)
+
+# 오브젝트 파일 만들기
 set_objfile(loc_list, object_code, label, opcode, operand)

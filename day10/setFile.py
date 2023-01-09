@@ -108,9 +108,12 @@ def set_objfile(loc_list, object_code, label, opcode, operand):
     # 프로그램 길이
     # 마지막 loc 값 - 0번째 loc값
     program_length = format(int(loc_list[-1], 16) - int(loc_list[0], 16), 'x')
-
     f = open("./OBJFILE", 'w')
 
-    # for i in range(len(label)):
+    for i in range(len(label)):
+        data = ''
+        # H작성, opcode가 start라면 H
+        if opcode[i] == 'start':
+            data = data + f'{loc_list[i].zfill(6)}{}'
 
     f.close()
