@@ -113,7 +113,20 @@ def set_objfile(loc_list, object_code, label, opcode, operand):
     for i in range(len(label)):
         data = ''
         # H작성, opcode가 start라면 H
-        # if opcode[i] == 'start':
-        #     data = data + f'{loc_list[i].zfill(6)}{}'
+        if opcode[i] == 'START':
+            start_address = operand[i].zfill(6)
+            data = data + \
+                f'H{label[i]}  {start_address}{program_length.zfill(6)}\n'
 
+            f.write(data)
+
+        # T작성
+
+        # E작성
+        if opcode[i] == 'END':
+            for j in range(len(label)):
+                if operand[i] == label[j]:
+                    data = data + f'E{loc_list[j].zfill(6)}\n'
+                    break
+            f.write(data)
     f.close()
