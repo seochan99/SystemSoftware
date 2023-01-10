@@ -1,6 +1,7 @@
 from assembler_algo import *
 
 
+# 패스1
 def pass1(loc_list, loc, label, opcode, operand, optab_label):
     f = open("./INTFILE", 'w')
 
@@ -66,6 +67,7 @@ def pass1(loc_list, loc, label, opcode, operand, optab_label):
     f.close()
 
 
+# 패스 2
 def pass2(loc_list, object_code, label, opcode, operand, instruction_code):
     f = open("./LISFILE", 'w')
     cal_object_code(loc_list, object_code, label,
@@ -103,14 +105,15 @@ def pass2(loc_list, object_code, label, opcode, operand, instruction_code):
     f.close()
 
 
+# 오브젝트 파일 생성 함수
 def set_objfile(loc_list, object_code, label, opcode, operand):
-
     # 프로그램 길이
     # 마지막 loc 값 - 0번째 loc값
     program_length = format(int(loc_list[-1], 16) - int(loc_list[0], 16), 'x')
     body_length = format(int(loc_list[-2], 16) - int(loc_list[1], 16), 'x')
     t_record_length = 0
     f = open("./OBJFILE", 'w')
+
     for i in range(len(label)):
         # 기본 데이터
         data = ''
