@@ -71,44 +71,53 @@ a_register = 0
 # 6개씩 자르기
 split_data = list(map(''.join, zip(*[iter(t_record_data)]*6)))
 # t_record 요소 찾기
-for i in range(len(split_data)):
-    for j in range(len(label)):
-        # 같은것을 찾으면
-        if split_data[i][2:] == loc_list[j]:
-            for k in range(len(label)):
-                if split_data[i] == object_code[k]:
-                    if opcode[k] == 'LDA':
-                        a_register = int(operand[j], 16)
-                    if opcode[k] == 'ADD':
-                        a_register += int(operand[j], 16)
-                    if opcode[k] == 'MUL':
-                        a_register *= int(operand[j], 16)
-                    if opcode[k] == 'SUB':
-                        a_register -= int(operand[j], 16)
+# for i in range(len(split_data)):
+#     for j in range(len(label)):
+#         # 같은것을 찾으면
+#         if split_data[i][2:] == loc_list[j]:
+#             for k in range(len(label)):
+#                 if split_data[i] == object_code[k]:
+#                     if opcode[k] == 'LDA':
+#                         a_register = int(operand[j], 16)
+#                     if opcode[k] == 'ADD':
+#                         a_register += int(operand[j], 16)
+#                     if opcode[k] == 'MUL':
+#                         a_register *= int(operand[j], 16)
+#                     if opcode[k] == 'SUB':
+#                         a_register -= int(operand[j], 16)
+# print(f"A resgier : {a_register}")
+
 cnt = 0
+
+print("실행 : r, 종료 : q")
+cmd_cnt = int(input("한 번에 실행할 명령어 갯수 : "))
+
 while True:
-    opt = input("실행 : r, 종료 : q\n")
+    opt = input()
     if opt == 'q':
         print("프로그램을 종료합니다.")
         break
     elif opt == 'r' and cnt < len(split_data):
-        print(f"{object_code[cnt+1]} {opcode[cnt+1]} {operand[cnt+1]}")
-        # 계산
-        for j in range(len(label)):
-            if split_data[cnt][2:] == loc_list[j]:
-                for k in range(len(label)):
-                    if split_data[cnt] == object_code[k]:
-                        if opcode[k] == 'LDA':
-                            a_register = int(operand[j], 16)
-                        if opcode[k] == 'ADD':
-                            a_register += int(operand[j], 16)
-                        if opcode[k] == 'MUL':
-                            a_register *= int(operand[j], 16)
-                        if opcode[k] == 'SUB':
-                            a_register -= int(operand[j], 16)
-        print(f"REGISTER A : {a_register}")
-        # cnt증가
-        cnt += 1
+        # 원하는 실행할 명령어 갯수만큼 실
+        for _ in range(cmd_cnt):
+            print(f"{object_code[cnt+1]} {opcode[cnt+1]} {operand[cnt+1]}")
+            # 계산
+            for j in range(len(label)):
+                if split_data[cnt][2:] == loc_list[j]:
+                    for k in range(len(label)):
+                        if split_data[cnt] == object_code[k]:
+                            if opcode[k] == 'LDA':
+                                a_register = int(operand[j], 16)
+                            elif opcode[k] == 'ADD':
+                                a_register += int(operand[j], 16)
+                            elif opcode[k] == 'MUL':
+                                a_register *= int(operand[j], 16)
+                            elif opcode[k] == 'SUB':
+                                a_register -= int(operand[j], 16)
+                            else:
+                                break
+            print(f"REGISTER A : {a_register}\n")
+            # cnt증가
+            cnt += 1
     else:
         print("r 또는 q를 입력해주세요.")
-print(f"실행결과 a register 값 : {format(a_register,'x')}")
