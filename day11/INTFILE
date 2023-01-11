@@ -1,12 +1,10 @@
 1000  test     start   1000
 1000  first    lda     zero
 1003           lda     zero
-1006  cloop    ldch    str1,x
-1009           ldch    str1,x
-100c           ldch    str1,x
-100f           ldch    str1,x
-1012  zero     word    0
-1015  alpha    word    5
-1018  str1     byte    c'hello'
-101d  str2     resb    5
-1022           end     first
+1006           lda     zero
+1009           lda     zero
+100c  zero     word    0
+100f  one    word    1
+1012  two    word    2
+1015  three    word    3
+1018           end     first

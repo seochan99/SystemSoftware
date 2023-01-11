@@ -16,8 +16,8 @@ def get_optab(instruction, code):
 
 def get_srcfile(label, opcode, operand, optab_label):
     # 파일 오픈
-    file_name = input('파일 이름 입력 : ')
-    # file_name = 'srcfile'
+    # file_name = input('파일 이름 입력 : ')
+    file_name = 'srcfile'
 
     # srcfile 입력받기
     try:
@@ -48,4 +48,30 @@ def get_srcfile(label, opcode, operand, optab_label):
             opcode.append(temp[1])
             operand.append(temp[2])
     # close file
+    f.close()
+
+
+def get_objfile(t_record):
+    # optab저장
+    f = open("./objfile", 'r')
+    cnt_t = 0
+    while True:
+        # 한줄 읽는다
+        line = f.readline()
+        if not line:                                # 파일 읽기 스탑
+            break
+        # 개행 없애고 공백기준 split하여 List화 하여 temp에 임시 저장
+        # 시작주소, 길이,
+        # T record라면 cnt t 1상승
+        if line[0] == 'T':
+            cnt_t += 1
+            # T record의 첫줄이라면
+            if cnt_t == 1:
+                # 시작주소, 길이 날리기 = 1 + 6 + 2
+                # index 10부터 시작
+                # 9개 날림
+                t_record.append(line[10:].rstrip('\n'))
+            else:
+                t_record.append(line[1:].rstrip('\n'))
+    # 파일 닫기
     f.close()

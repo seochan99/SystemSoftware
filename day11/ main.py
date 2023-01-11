@@ -18,6 +18,10 @@ loc_list = []  # loc_list
 # LISFILE
 object_code = []
 
+# OBJFILE
+t_record = []
+
+
 # optab 가져오기
 get_optab(instruction, code)
 
@@ -53,3 +57,7 @@ for i in range(len(operand)):
 
 # 오브젝트 파일 만들기
 set_objfile(loc_list, object_code, label, opcode, operand)
+
+# 오브젝트 파일 읽기
+get_objfile(t_record)
+print(t_record)

@@ -1,13 +1,11 @@
 1000           test     start   1000
-1000  001012   first    lda     zero
-1003  041012            ldx     zero
-1006  509018   cloop    ldch    str1,x
-1009  54901d            stch    str2,x
-100c  2C1015            tix     alpha
-100f  381006            jlt     cloop
-1012  000000   zero     word    0
-1015  000005   alpha    word    5
-1018  68656c   str1     byte     c'hello'
-      6c6f
-101d           str2     resb    5
-1022                    end     first
+1000  00100c   first    lda     zero
+1003  181012            add     two
+1006  001015            mul     three
+**** unrecognized operation code ****
+1009  1C100f            sub     one
+100c  000000   zero     word    0
+100f  000001   one    word    1
+1012  000002   two    word    2
+1015  000003   three    word    3
+1018                    end     first
