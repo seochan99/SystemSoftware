@@ -60,4 +60,28 @@ set_objfile(loc_list, object_code, label, opcode, operand)
 
 # 오브젝트 파일 읽기
 get_objfile(t_record)
-print(t_record)
+
+# t_record 문자열 합치기
+t_record_data = ''
+for i in range(len(t_record)):
+    t_record_data = t_record_data + t_record[i]
+# a 레지스터 계산
+a_register = 0
+
+# 6개씩 자르기
+split_data = list(map(''.join, zip(*[iter(t_record_data)]*6)))
+# t_record 요소 찾기
+for i in range(len(split_data)):
+    for j in range(len(label)):
+        # 같은것을 찾으면
+        if split_data[i][2:] == loc_list[j]:
+            for k in range(len(label)):
+                if split_data[i] == object_code[k]:
+                    if opcode[k] == 'LDA':
+                        a_register = int(operand[j], 16)
+                    if opcode[k] == 'ADD':
+                        a_register += int(operand[j], 16)
+                    if opcode[k] == 'MUL':
+                        a_register *= int(operand[j], 16)
+
+print(f"실행결과 a register 값 : {format(a_register,'x')}")

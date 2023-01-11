@@ -70,7 +70,7 @@ def get_objfile(t_record):
                 # 시작주소, 길이 날리기 = 1 + 6 + 2
                 # index 10부터 시작
                 # 9개 날림
-                t_record.append(line[10:].rstrip('\n'))
+                t_record.append(line[9:].rstrip('\n'))
             else:
                 t_record.append(line[1:].rstrip('\n'))
     # 파일 닫기
