@@ -83,5 +83,32 @@ for i in range(len(split_data)):
                         a_register += int(operand[j], 16)
                     if opcode[k] == 'MUL':
                         a_register *= int(operand[j], 16)
-
+                    if opcode[k] == 'SUB':
+                        a_register -= int(operand[j], 16)
+cnt = 0
+while True:
+    opt = input("실행 : r, 종료 : q\n")
+    if opt == 'q':
+        print("프로그램을 종료합니다.")
+        break
+    elif opt == 'r' and cnt < len(split_data):
+        print(f"{object_code[cnt+1]} {opcode[cnt+1]} {operand[cnt+1]}")
+        # 계산
+        for j in range(len(label)):
+            if split_data[cnt][2:] == loc_list[j]:
+                for k in range(len(label)):
+                    if split_data[cnt] == object_code[k]:
+                        if opcode[k] == 'LDA':
+                            a_register = int(operand[j], 16)
+                        if opcode[k] == 'ADD':
+                            a_register += int(operand[j], 16)
+                        if opcode[k] == 'MUL':
+                            a_register *= int(operand[j], 16)
+                        if opcode[k] == 'SUB':
+                            a_register -= int(operand[j], 16)
+        print(f"REGISTER A : {a_register}")
+        # cnt증가
+        cnt += 1
+    else:
+        print("r 또는 q를 입력해주세요.")
 print(f"실행결과 a register 값 : {format(a_register,'x')}")
